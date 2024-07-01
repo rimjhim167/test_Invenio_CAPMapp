@@ -1,0 +1,122 @@
+###Get service document - contains the entity sets of entire service
+http://localhost:4004/odata/v4/CatalogService/
+ 
+###Service metadata document - enttiies and their respective properties
+http://localhost:4004/odata/v4/CatalogService/$metadata
+ 
+###Get all the employee data in json format
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$format=json
+
+ ###Get all the employee data chunk by chunk using pagination
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$skip=2&$top=2
+
+###Filter data
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=bankName eq 'My Bank of New York'
+ 
+### pattern based filter
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=contains(nameFirst,'Su')
+ 
+###Get the total record counts
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/$count
+ 
+###Get the records with minimal data set
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$select=ID,nameFirst,email
+ 
+###Get Single Employee data by Key
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C197A7FB
+
+###Insert new employee in DB
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+Content-Type: application/json
+ 
+{
+  "nameFirst": "Rimjhim",
+  "nameMiddle": null,
+  "nameLast": "Agrawal",
+  "nameInitials": null,
+  "sex": "F",
+  "language": "E",
+  "phoneNumber": null,
+  "email": "rim@demo.com",
+  "loginName": "ARIM",
+  "Currency_code": "USD",
+  "salaryAmount": 50000,
+  "accountNumber": "9988776655",
+  "bankId": "121000358",
+  "bankName": "State Bank of India"
+}
+ 
+###Change employee
+PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeSet/3304aa80-ec51-4520-a433-862a05eb33a8
+Content-Type: application/json
+ 
+{
+    "salaryAmount": 100000,
+    "Currency_code": "EUR"
+}
+ 
+###Remove the employee
+DELETE http://localhost:4004/odata/v4/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C19A27FB
+
+###Filter data
+http://localhost:4004/odata/v4/CatalogService/EmployeeSet/02BD2137-0890-1EEA-A6C2-BB55C19A27FB
+ 
+###Get all POS
+http://localhost:4004/odata/v4/CatalogService/POs
+ 
+###Get Single PO
+http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC36052
+ 
+###Load dependent data for PO
+http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC36052/Items
+ 
+ 
+###Load PO and its dependent items data
+http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC36052?$expand=Items
+ 
+###Getting data from cds view entity
+http://localhost:4004/odata/v4/CatalogService/ProductCDS/74867AD200E41EDBA5D8B06B26EBC052?$expand=To_Items
+
+###Calling Boost Action
+POST http://localhost:4004/odata/v4/CatalogService/POs('74867AD200E41EDBA5D8B0CBD3600052')/CatalogService.boost
+Content-Type: application/json
+ 
+{}
+
+###Boosting a order
+GET http://localhost:4004/CatalogService/POs('74867AD200E41EDBA5D8B0C98DC34052')/CatalogService.largestOrder()
+
+###Change employee Salary (Generic Handlers)
+PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeSet/0df923c5-89b0-4306-b19e-c285f4d41d03
+Content-Type: application/json
+ 
+{
+    "salaryAmount": 2000000,
+    "Currency_code": "EUR"
+}
+
+###Read custom entity
+http://localhost:4004/odata/v4/MyService/ReadEmployeeSrv
+
+
+###Read custom entity
+POST http://localhost:4004/odata/v4/MyService/ReadEmployeeSrv
+Content-Type: application/json
+ 
+{
+  "nameFirst": "Paul",
+  "nameMiddle": null,
+  "nameLast": "Carlos",
+  "nameInitials": null,
+  "sex": "M",
+  "language": "E",
+  "phoneNumber": null,
+  "email": "paul@demo.com",
+  "loginName": "CARLOSP",
+  "Currency_code": "USD",
+  "salaryAmount": 50000,
+  "accountNumber": "9988776655",
+  "bankId": "121000358",
+  "bankName": "My Bank of San Francisco"
+}
+
